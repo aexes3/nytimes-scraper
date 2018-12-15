@@ -14,14 +14,29 @@ app.set('view engine', 'handlebars');
 app.get('/scrape',function(req, res){
     
 
-    axios.get('https://www.nytimes.com/').then(function(result){
-        
-        console.log(result,"This is the result");
-       // const $ = cheerio.load(result.data);
+    axios.get('https://www.nytimes.com/').then(function(response){
+        const $ = cheerio.load(response.data);
 
-       
+        var result = [];
+
+        $('.css-9ywo2s').each(function(i, element){
+
+            let innerObj =  {
+                title: $(element).text(),
+                summary:  $(element).text()
+            }
+
+            result.push(innerObj)
+            // result.;
+            //result.link = $(this).attr("href");
+            //result.image = $(this).attr("data-default-src");
+            // result.
+            
+        })
+
+        console.log(result)
      
-        res.send("Scrape complete");
+        res.send(result);
     })
     
     //res.render('home')
@@ -33,7 +48,10 @@ app.get('/', function(req,res){
 })
 
 
-
+result = {
+    title: '',
+    whatever: ''
+}
 
 
 
